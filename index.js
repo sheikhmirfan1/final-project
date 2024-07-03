@@ -10,15 +10,11 @@ const app = express()
 
 
 mongoose.connect(MONGO_URI)
-
+  .then(() => app.listen(PORT, () =>  console.log (`Server is running on port ${PORT} 🟢` )))
+  .catch((err) =>console.error(`Server is not running due to error: ${err} 🔴`))
 
 
 
 app.get('/', (req, res) => {
   res.send('welcome to my restaurant Api')
 })
-const returnServer = app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}🟢`);
-})
-
-    
