@@ -12,9 +12,13 @@ const user = new Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    location: {
+        type: String,
+        required: true
+    },
 })
 
-const userModel = mongoose.model('user', user)
+const UserModel = mongoose.model('user', user)
 
-export default userModel
+export default UserModel

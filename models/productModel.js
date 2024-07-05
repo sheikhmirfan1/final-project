@@ -1,4 +1,4 @@
-import { Schema } from "mongoose"
+import mongoose, { Schema } from "mongoose"
 
 const product = new Schema({
     name: {
@@ -30,6 +30,6 @@ const product = new Schema({
 
     })
 
-    const productModel = mongoose.model('product', product)
+    const ProductModel = mongoose.model('product', product)
 
-    export default productModel
+    export default ProductModel
