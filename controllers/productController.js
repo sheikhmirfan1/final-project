@@ -46,8 +46,9 @@ const getProductById = async (req, res) => {
 }
 
 const deleteProduct = async (req, res) => {
+  const { productId } = req.params
   try {
-    const deleteProduct = await ProductModel.deleteProductById()
+    const deleteProduct = await ProductModel.deleteProductById(productId)
     return res.status(200).json('deleteProduct')
   }
   catch (err) {
