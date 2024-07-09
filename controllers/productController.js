@@ -15,4 +15,47 @@ const getProducts = async (req, res) => {
   }
 }
 
-export {getProducts}
+const createProduct = async (req, res) => {
+  const {name, description, price, imageUrl} = req.body
+  try {
+    const newProduct = await ProductModel.create({name, description, price, imageUrl})
+    return res.status(201).json(newProduct)
+  } catch (err) {
+    console.log("server error 🔴", err)
+    res.status(500).json({ error: `${err.message} 🔴` })
+  }
+}
+
+const getProductById = async (req, res) => {
+
+  const { productId } = req.params
+  try {
+    
+    if (!mongoose.Types.ObjectId.isValid(productId)) {
+      return res.status(400).json({ error: "Product not found" })
+    }
+    const product = await ProductModel.findById(productId)
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" })
+    }
+    return res.status(200).json(product)
+  } catch (err) {
+    console.log("server error 🔴", err)
+    res.status(500).json({ error: `${err.message} 🔴` })
+  }
+}
+
+const deleteProduct = async (req, res) => {
+  try {
+    const deleteProduct = await ProductModel.deleteProductById()
+    return res.status(200).json('deleteProduct')
+  }
+  catch (err) {
+    console.log("server error 🔴", err)
+    res.status(500).json({ error: `${err.message} 🔴` });
+
+}
+}
+
+
+export {getProducts, createProduct, getProductById, deleteProduct}
