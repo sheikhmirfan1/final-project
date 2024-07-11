@@ -9,6 +9,9 @@ const MONGO_URI = process.env.MONGO_URI
 
 const app = express()
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use('/api', productRoute)
 
 mongoose.connect(MONGO_URI)

@@ -55,7 +55,7 @@ This will install all necessary dependencies, including Jest and Mongoose.
 This project uses Jest for testing. To run the tests, execute the following command:
 
 ```bash
-npm test
+npm run dev
 ```
 
 ## Using Mongoose
