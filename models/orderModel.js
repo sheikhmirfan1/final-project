@@ -1,5 +1,6 @@
-import { Schema } from "mongoose";
-import productModel from "./productModel";
+import { Schema } from "mongoose"
+import mongoose from "mongoose"
+
 
 const order = new Schema({
   name: {

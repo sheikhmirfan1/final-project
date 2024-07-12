@@ -2,6 +2,10 @@ import express from 'express'
 import 'dotenv/config'
 import mongoose from 'mongoose'
 import productRoute from './routes/productRoute.js'
+import orderRoute from './routes/orderRoute.js'
+import authRoute from './routes/authRoute.js'
+
+
 
 
 const PORT = process.env.PORT || 3000
@@ -12,7 +16,11 @@ const app = express()
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api', productRoute)
+app.use('/api', productRoute,orderRoute,authRoute)
+
+
+
+
 
 mongoose.connect(MONGO_URI)
   .then(() => app.listen(PORT, () =>  console.log (`Server is running on port ${PORT} 🟢` )))

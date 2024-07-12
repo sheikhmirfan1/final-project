@@ -4,11 +4,11 @@ import {createOrder,getOrderById, getOrders, updateOrderToPaid,updateOrderToDeli
 
 const orderRoute = Router();
 
-orderRoute.route("/").post(protect, createOrder).get(protect, admin, getOrders);
-orderRoute.route("/:orderId").get(protect, getOrderById);
-orderRoute.route("/:orderId/pay").put(protect, updateOrderToPaid);
+orderRoute.route("/orders").post( createOrder)
+orderRoute.route("/:orderId").get( getOrderById);
+orderRoute.route("/:orderId/pay").put( updateOrderToPaid);
 orderRoute
   .route("/:orderId/deliver")
-  .put(protect, admin, updateOrderToDelivered);
+  .put(updateOrderToDelivered);
 
 export default orderRoute;
