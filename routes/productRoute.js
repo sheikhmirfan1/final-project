@@ -1,12 +1,21 @@
-import { Router } from "express"
-import {getProducts, createProduct,getProductById,deleteProduct} from "../controllers/productController.js";
+import { Router } from "express";
+import {
+  getProducts,
+  createProduct,
+  getProductById,
+  deleteProduct,
+} from "../controllers/productController.js";
 
-const productRoute = Router()
+import verifyToken from "../middleware/verify.js";
 
-productRoute.get("/products", getProducts)
-productRoute.post("/products", createProduct)
-productRoute.post("/products/:productId", getProductById)
-productRoute.delete("/products/:productId", deleteProduct)
+const productRoute = Router();
 
+productRoute.get("/products", getProducts);
 
-export default  productRoute
+productRoute.post("/products", verifyToken, createProduct);
+
+productRoute.post("/products/:productId", getProductById);
+
+productRoute.delete("/products/:productId", deleteProduct);
+
+export default productRoute;
