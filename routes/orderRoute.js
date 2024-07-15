@@ -7,8 +7,6 @@ const orderRoute = Router();
 orderRoute.route("/orders").post( createOrder)
 orderRoute.route("/:orderId").get( getOrderById);
 orderRoute.route("/:orderId/pay").put( updateOrderToPaid);
-orderRoute
-  .route("/:orderId/deliver")
-  .put(updateOrderToDelivered);
+orderRoute.route("/:orderId/deliver").put(updateOrderToDelivered);
 
 export default orderRoute;
