@@ -1,33 +1,30 @@
-import express from 'express'
-import 'dotenv/config'
-import mongoose from 'mongoose'
-import productRoute from './routes/productRoute.js'
-import orderRoute from './routes/orderRoute.js'
-import authRoute from './routes/authRoute.js'
+import express from "express";
+import "dotenv/config";
+import mongoose from "mongoose";
+import productRoute from "./routes/productRoute.js";
+import orderRoute from "./routes/orderRoute.js";
+import authRoute from "./routes/authRoute.js";
+import cors from "cors";
 
+const PORT = process.env.PORT || 3000;
+const MONGO_URI = process.env.MONGO_URI;
 
-
-
-const PORT = process.env.PORT || 3000
-const MONGO_URI = process.env.MONGO_URI
-
-const app = express()
+const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+app.use("/api", productRoute, orderRoute, authRoute);
 
-app.use('/api', productRoute,orderRoute,authRoute)
+mongoose
+  .connect(MONGO_URI)
+  .then(() =>
+    app.listen(PORT, () => console.log(`Server is running on port ${PORT} 🟢`))
+  )
+  .catch((err) =>
+    console.error(`Server is not running due to error: ${err} 🔴`)
+  );
 
-
-
-
-
-mongoose.connect(MONGO_URI)
-  .then(() => app.listen(PORT, () =>  console.log (`Server is running on port ${PORT} 🟢` )))
-  .catch((err) =>console.error(`Server is not running due to error: ${err} 🔴`))
-
-
-
-app.get('/', (req, res) => {
-  res.send('welcome to my restaurant Api')
-})
+app.get("/", (req, res) => {
+  res.send("welcome to my restaurant Api");
+});
