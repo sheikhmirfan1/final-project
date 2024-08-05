@@ -3,6 +3,7 @@ import "dotenv/config";
 import mongoose from "mongoose";
 import productRoute from "./routes/productRoute.js";
 import orderRoute from "./routes/orderRoute.js";
+import reservationRouter from "./routes/reservationRoute.js";
 import authRoute from "./routes/authRoute.js";
 import cors from "cors";
 
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use("/api", productRoute, orderRoute, authRoute);
+app.use("/api", reservationRouter);
 
 mongoose
   .connect(MONGO_URI)

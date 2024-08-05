@@ -1,24 +1,40 @@
-import reservation from "../models/reservationModel.js";
+import ReservationModel from "../models/reservationModel.js";
 
-// Get all reservations
+
+const createReservation = async (req, res) => {
+
+    const { name, email, phone, date, people } = req.body;
+    try {
+      const newReservation = await ReservationModel.create({
+        name,
+        email,
+        phone,
+        date,
+        people,
+      
+      });
+      return res.status(201).json(newReservation);
+    } catch (err) {
+      console.log("server error 🔴", err);
+       return res.status(500).json({ message: "No reservation found" });
+    }
+} 
+
 const getReservation = async (req, res) => {
     try {
-        const reservation = await reservation.find();
-        res.json(reservation);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
+      const reservation = await ReservationModel.find();
+      if (reservation.length < 1) {
+        return res.status(500).json({ message: "No reservation found" });
+      }
+      res.status(200).json(reservation);
+
+    } catch (err) {
+      console.log("server error 🔴", err);
+      return res.status(500).json({ message: "No reservation found" });
     }
     }
 
-// Post reservation
-const postReservation = async (req, res) => {
-    const newReservation = new reservation(req.body);
-    try {
-        const reservation = await newReservation.save();
-        res.status(201).json(reservation);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
-}
 
-export { getReservation, postReservation };
+
+
+export { getReservation, createReservation };

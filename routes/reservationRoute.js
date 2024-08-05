@@ -1,9 +1,13 @@
 import { Router } from "express";
 
-import { postReservation, getReservations } from "../controllers/reservationController.js";
+import {
+  getReservation,
+  createReservation,
+} from "../controllers/reservationController.js";
 
-const router = Router();
+const reservationRouter = Router();
 
-router.route("/reservation").get(getReservations).post(postReservation);
+reservationRouter.get("/reservation", getReservation);
+reservationRouter.post("/reservation", createReservation);
 
 export default reservationRouter;
