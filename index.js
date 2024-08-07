@@ -6,6 +6,7 @@ import orderRoute from "./routes/orderRoute.js";
 import reservationRouter from "./routes/reservationRoute.js";
 import authRoute from "./routes/authRoute.js";
 import cors from "cors";
+import mailRoute from "./routes/mailRoute.js";
 
 const PORT = process.env.PORT || 3000;
 const MONGO_URI = process.env.MONGO_URI;
@@ -15,7 +16,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-app.use("/api", productRoute, orderRoute, authRoute);
+app.use("/api", productRoute, orderRoute, authRoute,mailRoute);
 app.use("/api", reservationRouter);
 
 mongoose
