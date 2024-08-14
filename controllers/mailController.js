@@ -9,7 +9,7 @@ const sendEmail = async (req, res) => {
         from: email,
         to: "mohammad.irfan.sheikh@students.beaminstitute.org",
         subject:subject,
-        text: `${text} from : ${email}`,
+        text: `${text}  from : ${email}`,
       });
       res.json({ message: "Email sent successfully" });
   }
