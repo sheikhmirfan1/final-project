@@ -1,7 +1,4 @@
-import CartModel from "../models/CartModel.js";
-
-
-
+import CartModel from "../models/cartModel.js";
 
 
 const getAllCart = async (req, res) => {
@@ -19,12 +16,17 @@ const addCart = async (req,res) => {
     const {products} = req.body
     console.log(req.body);
     try {
-        const createCart = await CartModel ({
-            
-            product: products.productId,
-            quantity: products.quantity,
-            price: products.price,
-            
+        const createCart = await CartModel({
+          name:req.body.name,
+            location:req.body.location,
+            phone:req.body.phone,
+          products: products.map(product => ({
+                product: product.product,
+                quantity: product.quantity,
+                price: product.price
+            })),
+            totalPrice: products.reduce((acc, item) => acc + (item.quantity * item.price), 0)
+         
         });
         await createCart.save(req.body);
         return res.status(201).json(createCart);
