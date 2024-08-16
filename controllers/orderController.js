@@ -1,4 +1,4 @@
-import  OrderModel  from "../models/orderModel.js"
+import OrderModel from "../models/orderModel.js"
 import mongoose from "mongoose"
 
 const getOrders = async (req, res) => {
@@ -15,16 +15,22 @@ const getOrders = async (req, res) => {
 };
 
 const createOrder = async (req, res) => {
-  const { name, price, userId, status, productId, quantity } = req.body;
+  console.log(req.body)
+  const {products, address} = req.body
   try {
-    const newOrder = await OrderModel.create({
-      name,
-      price,
-      userId,
-      status,
-      productId,
-      quantity,
+    const newOrder = await OrderModel({
+      name: address.name,
+      location: address.location,
+      phone: address.phone,
+      products: products.map(product => ({
+        product: product._id,
+        quantity: product.quantity,
+        price: product.price
+      })),
+      totalPrice: products.reduce((acc, item) => acc + (item.quantity * item.price), 0)
+
     });
+    newOrder.save()
     return res.status(201).json(newOrder);
   } catch (err) {
     console.log("server error 🔴", err);

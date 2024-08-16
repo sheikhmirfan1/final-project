@@ -7,26 +7,26 @@ const getAllCart = async (req, res) => {
         res.status(200).json(carts);
     } catch (error) {
         res.status(500).json({
-        message: error.message
+            message: error.message
         });
     }
-    }
+}
 
-const addCart = async (req,res) => { 
-    const {products} = req.body
+const addCart = async (req, res) => {
+    const { products } = req.body
     console.log(req.body);
     try {
         const createCart = await CartModel({
-          name:req.body.name,
-            location:req.body.location,
-            phone:req.body.phone,
-          products: products.map(product => ({
+            name: req.body.name,
+            location: req.body.location,
+            phone: req.body.phone,
+            products: products.map(product => ({
                 product: product.product,
                 quantity: product.quantity,
                 price: product.price
             })),
             totalPrice: products.reduce((acc, item) => acc + (item.quantity * item.price), 0)
-         
+
         });
         await createCart.save(req.body);
         return res.status(201).json(createCart);
@@ -35,31 +35,31 @@ const addCart = async (req,res) => {
     }
 }
 
-    
 
-const updateCart = async (req,res) => {
-     
+
+const updateCart = async (req, res) => {
+
     try {
         const cart = await CartModel.updateOne(req.body);
 
-        await CartModel. UpdateCart(req.body);
-        
+        await CartModel.UpdateCart(req.body);
+
         return res.status(201).json(cart);
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
-    
-    }
 
-const deleteCart = async (req,res) => {
+}
+
+const deleteCart = async (req, res) => {
     try {
         const cart = await CartModel.deleteOne(req.body);
         return res.status(201).json(cart);
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
-    }
+}
 
 
 
-export {getAllCart, addCart, updateCart, deleteCart};
+export { getAllCart, addCart, updateCart, deleteCart };

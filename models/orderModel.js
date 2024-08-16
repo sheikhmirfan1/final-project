@@ -1,37 +1,46 @@
-import { Schema } from "mongoose"
-import mongoose from "mongoose"
+import mongoose, { Schema } from 'mongoose'
 
+const orderSchema = new Schema({
+  products: [{
+    product: {
+      type: Schema.Types.ObjectId,
+      ref: 'product',
+      required: true
+    },
+    quantity: {
+      type: Number,
+      required: true
 
-const order = new Schema({
+    },
+    price: {
+      type: Number,
+      required: true
+    }
+  }],
+
+  status: {
+    type: String,
+    enum: ['Pending', 'Shipped', 'Delivered', 'Cancelled'],
+    default: 'Pending'
+  },
   name: {
     type: String,
     required: true,
   },
-  price: {
-    type: Number,
-    required: true,
-  },
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: "user",
-    required: true,
-  },
-  status: {
+  location: {
     type: String,
     required: true,
   },
-  productId: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "product",
-      required: true,
-    }],
-  quantity: {
+  phone: {
     type: Number,
     required: true,
   },
-});
 
-const OrderModel = mongoose.model('order', order)
+  totalPrice: {
+    type: Number,
+    required: true
+  }
 
-export default OrderModel
+})
+const Order = mongoose.model('Order', orderSchema)
+export default Order
