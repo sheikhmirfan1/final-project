@@ -14,6 +14,13 @@ const MONGO_URI = process.env.MONGO_URI;
 
 const app = express();
 
+
+const corsOptions = {
+  exposedHeaders: ["Content-Range"],
+};
+
+
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());

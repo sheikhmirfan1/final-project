@@ -50,6 +50,14 @@ const updateCart = async (req, res) => {
     }
 
 }
+const getCartById = async (req, res) => {
+    try {
+        const cart = await CartModel.findById(req.params.id);
+        return res.status(200).json(cart);
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+}
 
 const deleteCart = async (req, res) => {
     try {
@@ -62,4 +70,6 @@ const deleteCart = async (req, res) => {
 
 
 
-export { getAllCart, addCart, updateCart, deleteCart };
+
+
+export { getAllCart, addCart, updateCart, deleteCart ,getCartById};
